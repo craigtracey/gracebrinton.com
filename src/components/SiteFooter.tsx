@@ -18,7 +18,7 @@ export function SiteFooter() {
           <Link href="/hormone-health">Learn</Link>
           <Link href="/recipes">Recipes</Link>
           <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
+          <Link href="/work-with-me">Contact</Link>
         </nav>
 
         <div className="footer-signup">

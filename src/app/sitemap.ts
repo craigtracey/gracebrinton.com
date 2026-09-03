@@ -20,7 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   add("/", 1);
   // /articles has no index page; it 308s to /hormone-health, which now lists
   // every article grouped by pillar. Individual /articles/<slug> URLs are added below.
-  ["/coaching", "/hormone-health", "/recipes", "/about", "/work-with-me", "/contact"].forEach((p) =>
+  ["/coaching", "/hormone-health", "/recipes", "/about", "/work-with-me"].forEach((p) =>
     add(p, 0.8)
   );
 

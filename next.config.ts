@@ -60,6 +60,9 @@ const redirects = async () => [
   // ── Structural ───────────────────────────────────────────────────────────
   { source: "/home", destination: "/", permanent: true },
   { source: "/website-disclaimer", destination: "/privacy-policy", permanent: true },
+  // Standalone /contact page removed: the contact form now lives on
+  // /work-with-me (booking and messaging are the same funnel).
+  { source: "/contact", destination: "/work-with-me", permanent: true },
 
   // ── Legacy 2020 /blog: duplicates, placeholders, one-offs → /recipes ─────
   // (GSC showed no ranking value worth preserving individually; consolidate.)

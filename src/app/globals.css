@@ -342,13 +342,15 @@ a:hover { color: var(--color-sage-deep); }
 }
 .scheduler-fallback {
   background: var(--color-surface);
-  border: 1px dashed color-mix(in srgb, var(--color-ink) 25%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
   border-radius: 1rem;
-  padding: 2.75rem 1.5rem;
-  text-align: center;
+  padding: 2rem 1.5rem;
 }
-.scheduler-fallback p { color: var(--color-muted); margin: 0; }
-.scheduler-fallback .button { margin-top: 1.25rem; }
+@media (min-width: 640px) {
+  .scheduler-fallback { padding: 2.5rem; }
+}
+.scheduler-fallback h3 { margin: 0 0 0.35rem; font-size: 1.3rem; }
+.scheduler-fallback .contact-form { max-width: none; margin-top: 1.5rem; }
 
 /* ── Social links ─────────────────────────────────────────────────────── */
 .social-links { display: flex; gap: 0.5rem; align-items: center; }

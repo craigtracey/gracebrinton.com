@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import { SchedulerEmbed } from "@/components/SchedulerEmbed";
-import { ContactForm } from "@/components/ContactForm";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = buildMetadata({
@@ -46,14 +45,6 @@ export default function WorkWithMePage() {
           <p style={{ marginTop: "1.5rem", fontSize: "0.9rem", color: "var(--color-muted)" }}>
             {SITE.founder}, {SITE.credential} · {SITE.tagline}
           </p>
-
-          <div style={{ marginTop: "3rem", paddingTop: "3rem", borderTop: "1px solid color-mix(in srgb, var(--color-ink) 10%, transparent)" }}>
-            <h3>Prefer to write instead?</h3>
-            <p className="signup__body">
-              Send a quick message and Grace will follow up to find a time.
-            </p>
-            <ContactForm />
-          </div>
         </div>
       </div>
     </>
