@@ -1,5 +1,11 @@
 import type { NextConfig } from "next";
 import path from "node:path";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+
+// Lets `next dev` resolve Cloudflare bindings (env vars/secrets) via
+// getCloudflareContext(), the same way the deployed Worker does — needed by
+// /api/contact to read RESEND_API_KEY from .dev.vars during local dev.
+initOpenNextCloudflareForDev();
 
 /**
  * 301 redirect map: Squarespace URL → new home.

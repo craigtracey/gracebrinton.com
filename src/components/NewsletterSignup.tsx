@@ -34,7 +34,7 @@ export function NewsletterSignup({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, fullname: name }),
       });
-      const data = await res.json().catch(() => ({ ok: false }));
+      const data = (await res.json().catch(() => ({ ok: false }))) as { ok: boolean; error?: string };
       if (data.ok) setState("done");
       else {
         setState("error");

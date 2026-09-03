@@ -312,6 +312,26 @@ a:hover { color: var(--color-sage-deep); }
 .signup__done { color: var(--color-sage-deep); font-weight: 500; margin: 0; }
 .signup__err { color: #b3261e; font-size: 0.85rem; margin: 0.5rem 0 0; }
 
+/* ── Contact form ─────────────────────────────────────────────────────── */
+.contact-form { display: flex; flex-direction: column; gap: 1.1rem; max-width: 34rem; margin-top: 2rem; }
+.contact-form label { display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.9rem; color: var(--color-muted); }
+.contact-form__row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.contact-form__row label { flex: 1 1 12rem; }
+.contact-form input,
+.contact-form textarea {
+  padding: 0.7rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 22%, transparent);
+  border-radius: 0.75rem;
+  background: #fff;
+  font: inherit;
+  color: var(--color-ink);
+  resize: vertical;
+}
+.contact-form input:focus,
+.contact-form textarea:focus { outline: 2px solid var(--color-sage-deep); outline-offset: 1px; }
+.contact-form .button { align-self: flex-start; border: none; cursor: pointer; }
+.contact-form__hp { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
+
 /* ── Scheduler ────────────────────────────────────────────────────────── */
 .scheduler-embed {
   width: 100%;

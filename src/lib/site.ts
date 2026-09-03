@@ -39,7 +39,7 @@ export const SITE = {
   url: SITE_URL,
   locale: "en_US",
   areaServed: "United States",
-  email: "hello@gracebrinton.com",
+  email: "grace@gracebrinton.com",
 
   /**
    * Booking scheduler. Paste Grace's real Acuity/Calendly/Squarespace Scheduling

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
+import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = buildMetadata({
   title: "Contact",
@@ -16,8 +17,10 @@ export default function ContactPage() {
       <p className="sub">
         The fastest way to start is to{" "}
         <Link href="/work-with-me">book a free consult</Link>. For anything else,
-        email <a href="mailto:hello@gracebrinton.com">hello@gracebrinton.com</a>.
+        send a message below, or email{" "}
+        <a href="mailto:grace@gracebrinton.com">grace@gracebrinton.com</a> directly.
       </p>
+      <ContactForm />
     </section>
   );
 }
