@@ -33,8 +33,7 @@ export function SiteFooter() {
 
       <div className="wrap">
         <p className="footer-legal">
-          © {SITE.name}, {SITE.credential}. {SITE.tagline}. ·{" "}
-          <Link href="/privacy-policy">Privacy</Link>
+          © {SITE.name}, {SITE.credential}. {SITE.tagline}.
         </p>
       </div>
     </footer>

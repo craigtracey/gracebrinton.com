@@ -59,7 +59,11 @@ const redirects = async () => [
 
   // ── Structural ───────────────────────────────────────────────────────────
   { source: "/home", destination: "/", permanent: true },
-  { source: "/website-disclaimer", destination: "/privacy-policy", permanent: true },
+  // Privacy policy removed (it was placeholder content, never real copy) —
+  // both the old Squarespace disclaimer URL and the page itself now fall
+  // through to the homepage.
+  { source: "/website-disclaimer", destination: "/", permanent: true },
+  { source: "/privacy-policy", destination: "/", permanent: true },
   // Standalone /contact page removed: the contact form now lives on
   // /work-with-me (booking and messaging are the same funnel).
   { source: "/contact", destination: "/work-with-me", permanent: true },
