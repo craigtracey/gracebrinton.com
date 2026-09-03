@@ -17,8 +17,11 @@ export const SOCIAL: { platform: SocialPlatform; label: string; href: string }[]
 /**
  * Base origin: env-driven so OG images, canonicals, sitemap, and schema resolve
  * on whatever domain is actually serving the site:
- *   1. NEXT_PUBLIC_SITE_URL   → explicit override (set this in production to
- *                               https://www.gracebrinton.com)
+ *   1. NEXT_PUBLIC_SITE_URL   → explicit override. Production is the apex
+ *                               https://gracebrinton.com, set by the build
+ *                               command in wrangler.jsonc (it must be applied at
+ *                               BUILD time — NEXT_PUBLIC_* is inlined by
+ *                               `next build`, so a Worker `vars` entry is too late).
  *   2. VERCEL_URL             → the current Vercel deployment (preview/prod)
  *   3. https://gracebrinton.tunn.dev → local dev via the tunnel
  */

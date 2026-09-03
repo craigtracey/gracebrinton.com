@@ -18,7 +18,11 @@
     // pageExtensions in next.config.ts) leaves a stale generated type behind, and
     // the production type-check then fails on it. No-op in CI; keeps the webpack
     // cache, unlike removing all of .next.
-    "command": "rm -rf .next/types && npx opennextjs-cloudflare build && npx opennextjs-cloudflare populateCache local"
+    // NEXT_PUBLIC_SITE_URL is set here, not in `vars`: NEXT_PUBLIC_* is inlined
+    // into the bundle by `next build`, so a runtime binding would come too late.
+    // It drives canonical URLs, the sitemap, OG image URLs and JSON-LD; without
+    // it src/lib/site.ts falls back to the dev tunnel origin.
+    "command": "rm -rf .next/types && NEXT_PUBLIC_SITE_URL=https://gracebrinton.com npx opennextjs-cloudflare build && npx opennextjs-cloudflare populateCache local"
   },
   "compatibility_date": "2026-09-03",
   // nodejs_compat: the Next server bundle needs Node built-ins on workerd.
