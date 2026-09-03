@@ -32,3 +32,7 @@ yarn-error.log*
 
 # isolated production build dir
 /.next-prod/
+
+# cloudflare / opennext build output
+/.open-next/
+.wrangler/

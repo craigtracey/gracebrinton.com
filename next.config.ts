@@ -65,7 +65,28 @@ const redirects = async () => [
   { source: "/blog/:slug*", destination: "/recipes", permanent: true },
 ];
 
+/**
+ * The Keystatic admin (/keystatic) and its route handler (/api/keystatic) are
+ * DEV-ONLY. Their files are named `*.dev.tsx` / `*.dev.ts`, and that extension is
+ * only registered as a route extension when NODE_ENV is not "production" — so
+ * `next build` (which sets NODE_ENV=production) never sees them as routes and
+ * they are absent from the deployed Cloudflare Pages output entirely: no admin
+ * UI, no write API, no @keystatic/next code in the server bundle.
+ *
+ * The public site is unaffected: it reads content through `createReader` from the
+ * committed files in content/ at BUILD time (every content route uses
+ * generateStaticParams + dynamicParams=false), so nothing reads the filesystem
+ * at request time.
+ *
+ * Editing flow: run `yarn dev`, edit at http://localhost:6500/keystatic, commit
+ * the resulting content/ changes, push → Cloudflare Pages rebuilds.
+ */
+const isDev = process.env.NODE_ENV !== "production";
+
 const nextConfig: NextConfig = {
+  pageExtensions: isDev
+    ? ["ts", "tsx", "dev.ts", "dev.tsx"]
+    : ["ts", "tsx"],
   // Isolate production builds (NEXT_DIST_DIR=.next-prod yarn build/start) from a
   // running `next dev`, which otherwise rewrites the shared .next and breaks
   // `next start`. Dev keeps using the default .next.

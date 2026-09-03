@@ -1,0 +1,26 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "gracebrinton-com",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-03",
+  // nodejs_compat: the Next server bundle needs Node built-ins on workerd.
+  // global_fetch_strictly_public: makes fetch() to our own hostname go back out
+  // through the CDN rather than looping inside the Worker, which is what Next's
+  // server-side fetches (e.g. the ActiveCampaign proxy in /api/subscribe) expect.
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // Powers next/image optimisation on Cloudflare (see next.config.ts
+  // images.remotePatterns). Without this binding /_next/image 500s.
+  "images": {
+    "binding": "IMAGES"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // Deliberately absent: r2_buckets / d1_databases / WORKER_SELF_REFERENCE.
+  // Those exist to support ISR revalidation, which this site does not use.
+  // See the note in open-next.config.ts before adding them.
+}

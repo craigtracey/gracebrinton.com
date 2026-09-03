@@ -12,9 +12,20 @@ import { PILLAR_OPTIONS, CTA_OPTIONS, DEFAULT_CTA } from "./src/lib/funnel";
  * src/lib/funnel.ts; Grace picks from a list, so she can't typo a value that
  * breaks the auto-linking. Add/rename options in funnel.ts, not here.
  *
- * Storage: `local` for development (writes to the working tree). For production,
- * switch to GitHub storage so Grace's edits become commits/PRs:
- *   storage: { kind: "github", repo: "gracebrinton/gracebrinton.com" }
+ * Storage: `local` — the admin writes straight to the working tree. The admin is
+ * DEV-ONLY and never ships: its route files are named `*.dev.tsx` / `*.dev.ts`,
+ * and next.config.ts only registers that extension outside production, so
+ * `next build` emits no /keystatic UI and no /api/keystatic write endpoint. See
+ * the note above `pageExtensions` in next.config.ts.
+ *
+ * The public site never needs this at runtime — it reads content/ through
+ * `createReader` (src/lib/reader.ts) at BUILD time only.
+ *
+ * If Grace ever needs to edit without a local checkout, do NOT re-expose these
+ * routes on the main deploy: give the admin its own separately-deployed,
+ * access-controlled app using GitHub storage
+ * (`storage: { kind: "github", repo: "gracebrinton/gracebrinton.com" }`), so her
+ * edits land as commits and Cloudflare Pages rebuilds the public site.
  */
 
 // Reusable funnel fields shared by Recipes, Articles, and Pages.

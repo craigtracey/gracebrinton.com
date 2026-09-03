@@ -1,6 +1,11 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
+/**
+ * NOTE: no `export const runtime = "edge"`. The OpenNext Cloudflare adapter does
+ * not support Next's edge runtime (it shims next/dist/compiled/edge-runtime to an
+ * empty module); the whole Worker already runs on workerd, so the default nodejs
+ * runtime is both correct and the only supported option here.
+ */
 
 const SIZE = { width: 1200, height: 630 };
 
@@ -14,9 +19,14 @@ export async function GET(req: Request) {
   const raw = searchParams.get("title") || "Functional Nutrition for Women's Hormones";
   const title = raw.length > 110 ? raw.slice(0, 107) + "…" : raw;
 
+  // Fonts are fetched from /public over the request's own origin rather than via
+  // `new URL("./font.ttf", import.meta.url)`. That bundler-relative form resolves
+  // to a bare path ("/_next/static/media/...") which workerd's fetch() rejects
+  // with "Invalid URL" — it has no notion of a relative base. Resolving against
+  // req.url yields an absolute URL that works both in `next dev` and on Workers.
   const [script, serif] = await Promise.all([
-    fetch(new URL("./GreatVibes-Regular.ttf", import.meta.url)).then((r) => r.arrayBuffer()),
-    fetch(new URL("./Prata-Regular.ttf", import.meta.url)).then((r) => r.arrayBuffer()),
+    fetch(new URL("/fonts/GreatVibes-Regular.ttf", req.url)).then((r) => r.arrayBuffer()),
+    fetch(new URL("/fonts/Prata-Regular.ttf", req.url)).then((r) => r.arrayBuffer()),
   ]);
 
   return new ImageResponse(
