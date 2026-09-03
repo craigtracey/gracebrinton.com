@@ -3,10 +3,11 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { SITE } from "@/lib/site";
 
 /**
- * Sends the contact form to Grace via Resend (free tier: 3,000 emails/mo).
- * RESEND_API_KEY and CONTACT_TO_EMAIL are Worker secrets (see .dev.vars for
- * local dev; `wrangler secret put` for production) — never hardcoded, since
- * Resend keys are credentials, unlike the public AC form endpoint in SITE.
+ * Sends the contact form to Grace via Resend (free tier: 3,000 emails/mo),
+ * sending from the verified gracebrinton.com domain. RESEND_API_KEY and
+ * CONTACT_TO_EMAIL are Worker secrets (see .dev.vars for local dev;
+ * `wrangler secret put` for production) — never hardcoded, since Resend keys
+ * are credentials, unlike the public AC form endpoint in SITE.
  */
 export async function POST(req: Request) {
   try {
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: `${SITE.name} website <onboarding@resend.dev>`,
+        from: `${SITE.name} website <contact@gracebrinton.com>`,
         to,
         reply_to: email,
         subject: `New contact form message from ${name}`,
