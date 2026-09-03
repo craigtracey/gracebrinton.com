@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "PORT=6500 NODE_PORT=6500 next dev",
     "build": "NODE_OPTIONS=--max-old-space-size=4096 next build",
-    "cf:build": "rm -rf .next && NODE_OPTIONS=--max-old-space-size=4096 opennextjs-cloudflare build",
-    "cf:preview": "yarn cf:build && opennextjs-cloudflare preview",
-    "cf:deploy": "yarn cf:build && opennextjs-cloudflare deploy",
+    "cf:build": "rm -rf .next/types && opennextjs-cloudflare build && opennextjs-cloudflare populateCache local",
+    "cf:preview": "wrangler dev",
+    "cf:deploy": "wrangler deploy",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
     "lint": "next lint",
