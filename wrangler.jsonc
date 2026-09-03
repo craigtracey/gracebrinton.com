@@ -2,24 +2,17 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "gracebrinton-com",
   "main": ".open-next/worker.js",
-  // `main` is generated, not committed (.open-next is gitignored), so a bare
-  // `wrangler deploy` / `wrangler dev` on a fresh checkout would fail with
-  // "The entry-point file at \".open-next/worker.js\" was not found". This build
-  // command makes those self-sufficient — Cloudflare's Workers Builds CI runs
-  // `npx wrangler deploy` by default and would otherwise never produce a worker.
+  // NOTE: there is deliberately no `build.command` here.
   //
-  // populateCache is required, not optional: it stages the prerendered HTML into
-  // assets/cdn-cgi/_next_cache, without which every content page 404s with
-  // NoFallbackError. For the staticAssetsIncrementalCache override it is a purely
-  // local file copy, so `local` is correct even when deploying.
-  "build": {
-    // `rm -rf .next/types` clears type files left by a previous `next dev`. A
-    // dev-only route that no longer exists in a production build (see
-    // pageExtensions in next.config.ts) leaves a stale generated type behind, and
-    // the production type-check then fails on it. No-op in CI; keeps the webpack
-    // cache, unlike removing all of .next.
-    "command": "rm -rf .next/types && npx opennextjs-cloudflare build && npx opennextjs-cloudflare populateCache local"
-  },
+  // `opennextjs-cloudflare deploy` reads .open-next/.build/open-next.config.edge.mjs
+  // and exits before it ever invokes wrangler, so a wrangler build command cannot
+  // satisfy it — the build has to have run already. Worse, wrangler re-runs
+  // build.command from inside that deploy, which wipes and rebuilds .open-next
+  // underneath it (verified: a marker file in .open-next did not survive).
+  //
+  // So building is owned by the package.json scripts instead. Deploy with
+  // `yarn cf:deploy`, preview with `yarn cf:preview`; both build first. A bare
+  // `wrangler deploy` will not work from a clean checkout, by design.
   "compatibility_date": "2026-09-03",
   // nodejs_compat: the Next server bundle needs Node built-ins on workerd.
   // global_fetch_strictly_public: makes fetch() to our own hostname go back out
