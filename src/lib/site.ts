@@ -17,18 +17,19 @@ export const SOCIAL: { platform: SocialPlatform; label: string; href: string }[]
 /**
  * Base origin: env-driven so OG images, canonicals, sitemap, and schema resolve
  * on whatever domain is actually serving the site:
- *   1. NEXT_PUBLIC_SITE_URL   → explicit override. Production is the apex
- *                               https://gracebrinton.com, set by the build
- *                               command in wrangler.jsonc (it must be applied at
- *                               BUILD time — NEXT_PUBLIC_* is inlined by
- *                               `next build`, so a Worker `vars` entry is too late).
- *   2. VERCEL_URL             → the current Vercel deployment (preview/prod)
- *   3. https://gracebrinton.tunn.dev → local dev via the tunnel
+ *   1. NEXT_PUBLIC_SITE_URL   → explicit override, for the dev tunnel:
+ *                               NEXT_PUBLIC_SITE_URL=https://gracebrinton.tunn.dev
+ *   2. https://gracebrinton.com → the default.
+ *
+ * The production domain is the DEFAULT rather than something the deploy pipeline
+ * has to inject. NEXT_PUBLIC_* is inlined by `next build`, so it only takes
+ * effect if the variable is present in whichever process runs that build — and
+ * on Cloudflare that process varies with how the dashboard's build command is
+ * configured. Defaulting to the real origin means canonicals, the sitemap, OG
+ * image URLs and JSON-LD cannot silently ship a wrong host because a build
+ * setting changed.
  */
-const SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://gracebrinton.tunn.dev")
-).replace(/\/+$/, "");
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://gracebrinton.com").replace(/\/+$/, "");
 
 export const SITE = {
   name: "Grace Brinton",
