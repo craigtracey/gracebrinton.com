@@ -95,13 +95,11 @@ const nextConfig: NextConfig = {
   // pin it to this project so output file tracing is correct.
   outputFileTracingRoot: path.join(import.meta.dirname),
   redirects,
-  images: {
-    // Squarespace-hosted images can be referenced during migration; add real
-    // remote hosts (or move to /public) before launch.
-    remotePatterns: [
-      { protocol: "https", hostname: "images.squarespace-cdn.com" },
-    ],
-  },
+  // No `images.remotePatterns`: every image is local under public/images (40
+  // files; no content or component references a remote host). remotePatterns is
+  // an allowlist for the image optimizer, so an unused entry would let anyone
+  // pass a URL on that host to /_next/image and have the Worker fetch and
+  // re-serve it. Add a host back only when something actually needs it.
 };
 
 export default nextConfig;
