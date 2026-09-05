@@ -21,10 +21,9 @@ export function SchedulerEmbed() {
 
   return (
     <div className="scheduler-fallback">
-      <h3>Tell me what&apos;s going on</h3>
+      <h3>Start here</h3>
       <p className="signup__body">
-        Booking opens here shortly. Send a note in the meantime and Grace will
-        reply to find a time.
+        A few details and Grace will be in touch to schedule a call.
       </p>
       <ContactForm />
       {/* Dev: set SITE.schedulerUrl in src/lib/site.ts to Grace's real scheduler link. */}

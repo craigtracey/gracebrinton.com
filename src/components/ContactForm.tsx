@@ -80,7 +80,7 @@ export function ContactForm() {
         </label>
       </div>
       <label>
-        Message
+        What are your concerns?
         <textarea
           name="message"
           required
@@ -90,7 +90,7 @@ export function ContactForm() {
         />
       </label>
       <button type="submit" className="button" disabled={state === "loading"}>
-        {state === "loading" ? "Sending…" : "Send message"}
+        {state === "loading" ? "Sending…" : "Send"}
       </button>
       {state === "error" && <p className="signup__err">{error}</p>}
     </form>
