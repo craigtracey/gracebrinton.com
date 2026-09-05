@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Playfair_Display, Nunito_Sans, Great_Vibes } from "next/font/google";
 import { SITE } from "@/lib/site";
+import { Analytics } from "@/components/Analytics";
 
 // Elegant pairing: Playfair Display (refined serif) for headings, Nunito Sans
 // for body, and Great Vibes (elegant script) reserved for the logo + hero
@@ -47,7 +48,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${serif.variable} ${sans.variable} ${script.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

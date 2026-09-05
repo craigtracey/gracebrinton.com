@@ -66,6 +66,17 @@ export const SITE = {
     } as Record<string, string>,
   },
 
+  /**
+   * Analytics tags, rendered by <Analytics /> in the root layout. Blank out
+   * either ID to switch that tool off; both are production-only either way.
+   */
+  analytics: {
+    // GA4 measurement ID (Google Analytics → Admin → Data streams).
+    googleAnalyticsId: "G-88R437J18S" as string,
+    // Microsoft Clarity project ID (session recordings + heatmaps).
+    clarityId: "ydr6bdwcvk" as string,
+  },
+
   // Feeds schema.org sameAs (entity/SEO signal).
   sameAs: SOCIAL.map((s) => s.href),
 } as const;
