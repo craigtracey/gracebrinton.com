@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { SITE } from "@/lib/site";
 
 /**
  * NOTE: no `export const runtime = "edge"`. The OpenNext Cloudflare adapter does
@@ -16,7 +17,7 @@ const SIZE = { width: 1200, height: 630 };
  */
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const raw = searchParams.get("title") || "Functional Nutrition for Women's Hormones";
+  const raw = searchParams.get("title") || SITE.tagline;
   const title = raw.length > 110 ? raw.slice(0, 107) + "…" : raw;
 
   // Fonts are fetched from /public over the request's own origin rather than via
@@ -67,7 +68,7 @@ export async function GET(req: Request) {
             letterSpacing: 3,
           }}
         >
-          <span>Functional Nutrition for Women&apos;s Hormones</span>
+          <span>{SITE.tagline}</span>
           <span>FDN-P</span>
         </div>
       </div>

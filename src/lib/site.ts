@@ -33,7 +33,7 @@ const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://gracebrinton.com"
 
 export const SITE = {
   name: "Grace Brinton",
-  tagline: "Functional Nutrition for Women's Hormones",
+  tagline: "Functional Nutrition for Women's Health",
   founder: "Grace Brinton",
   credential: "FDN-P",
   url: SITE_URL,
