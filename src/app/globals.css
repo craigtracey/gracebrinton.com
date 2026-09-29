@@ -407,3 +407,14 @@ a:hover { color: var(--color-sage-deep); }
 .footer-nav a { color: var(--color-muted); text-decoration: none; font-size: 0.95rem; }
 .footer-nav a:hover { color: var(--color-sage-deep); }
 .footer-legal { font-size: 0.85rem; color: var(--color-muted); border-top: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent); padding-top: 1.25rem; margin: 0; }
+
+/* ── 4R Challenge landing page ────────────────────────────────────────── */
+.challenge-list li { font-size: 1.05rem; padding-block: 0.55rem; }
+.step-grid { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 1rem; }
+.step-card { background: var(--color-surface); border-radius: 1rem; padding: 1.4rem 1.5rem; box-shadow: 0 10px 30px color-mix(in srgb, var(--color-ink) 7%, transparent); display: flex; flex-direction: column; gap: 0.25rem; }
+.step-card__week { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-sage-deep); font-weight: 500; }
+.step-card__name { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; }
+.challenge-pullquote { margin: 2.5rem 0 0; padding-left: 1.25rem; border-left: 3px solid var(--color-sage-deep); font-family: var(--font-serif); font-size: clamp(1.3rem, 2.5vw, 1.6rem); line-height: 1.35; }
+.challenge-signoff { max-width: 46rem; margin-inline: auto; display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap; }
+.challenge-signoff img { width: 8.5rem; height: 8.5rem; border-radius: 999px; object-fit: cover; box-shadow: 0 10px 30px color-mix(in srgb, var(--color-ink) 12%, transparent); }
+.challenge-signoff__name { font-family: var(--font-script); font-size: 3.25rem; line-height: 1; margin: 0.25rem 0 0.5rem; }
