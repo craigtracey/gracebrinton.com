@@ -158,7 +158,7 @@ a:hover { color: var(--color-sage-deep); }
 }
 .card:hover { box-shadow: 0 10px 30px color-mix(in srgb, var(--color-ink) 8%, transparent); transform: translateY(-2px); }
 .card h3 { margin: 0 0 0.4rem; font-size: 1.3rem; }
-.card a { text-decoration: none; }
+a.card, .card a { text-decoration: none; }
 .card p { color: var(--color-muted); font-size: 0.95rem; margin: 0; }
 
 /* ── Hero ─────────────────────────────────────────────────────────────── */
