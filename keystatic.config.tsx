@@ -1,5 +1,6 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 import { PILLAR_OPTIONS, CTA_OPTIONS, DEFAULT_CTA } from "./src/lib/funnel";
+import { MEAL_OPTIONS } from "./src/lib/meals";
 
 /**
  * Keystatic: git-backed CMS.
@@ -28,7 +29,7 @@ import { PILLAR_OPTIONS, CTA_OPTIONS, DEFAULT_CTA } from "./src/lib/funnel";
  * edits land as commits and Cloudflare Pages rebuilds the public site.
  */
 
-// Reusable funnel fields shared by Recipes, Articles, and Pages.
+// Reusable funnel fields: pillar (Articles, Pages) and CTA (all three).
 const pillarField = fields.select({
   label: "Pillar (auto-links up to this hub)",
   description:
@@ -82,7 +83,7 @@ export default config({
       path: "content/recipes/*",
       format: { contentField: "content" },
       entryLayout: "content",
-      columns: ["title", "pillar"],
+      columns: ["title", "meal"],
       schema: {
         title: fields.slug({
           name: { label: "Title" },
@@ -102,7 +103,12 @@ export default config({
           publicPath: "/images/recipes",
         }),
         publishedDate: fields.date({ label: "Published date" }),
-        pillar: pillarField,
+        meal: fields.select({
+          label: "Meal",
+          description: "Shown as the label on recipe cards.",
+          options: MEAL_OPTIONS,
+          defaultValue: MEAL_OPTIONS[0].value,
+        }),
         cta: ctaField,
         // Structured recipe data → powers Recipe JSON-LD (rich results).
         prepMinutes: fields.integer({ label: "Prep time (minutes)", validation: { isRequired: false } }),

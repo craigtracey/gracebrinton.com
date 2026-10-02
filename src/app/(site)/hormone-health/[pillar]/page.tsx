@@ -20,17 +20,13 @@ async function loadPillar(pillarKey: string) {
   const pillar = pillarByKey(pillarKey);
   if (!pillar) return null;
 
-  const [articles, recipes] = await Promise.all([
-    reader.collections.articles.all(),
-    reader.collections.recipes.all(),
-  ]);
+  const articles = await reader.collections.articles.all();
 
   const inPillar = articles.filter((a) => a.entry.pillar === pillarKey);
   const cornerstone = inPillar.find((a) => a.entry.isCornerstone) ?? inPillar[0];
   const otherArticles = inPillar.filter((a) => a.slug !== cornerstone?.slug);
-  const relatedRecipes = recipes.filter((r) => r.entry.pillar === pillarKey);
 
-  return { pillar, cornerstone, otherArticles, relatedRecipes };
+  return { pillar, cornerstone, otherArticles };
 }
 
 export async function generateMetadata({
@@ -59,7 +55,7 @@ export default async function PillarPage({
   const data = await loadPillar(pillarKey);
   if (!data) notFound();
 
-  const { pillar, cornerstone, otherArticles, relatedRecipes } = data;
+  const { pillar, cornerstone, otherArticles } = data;
   const body = cornerstone ? await cornerstone.entry.content() : null;
 
   return (
@@ -91,7 +87,7 @@ export default async function PillarPage({
         </div>
       )}
 
-      {!body && relatedRecipes.length === 0 && otherArticles.length === 0 && (
+      {!body && otherArticles.length === 0 && (
         <div className="wrap section">
           <div className="prose-wrap content">
             <p>
@@ -104,25 +100,6 @@ export default async function PillarPage({
             </p>
           </div>
         </div>
-      )}
-
-      {relatedRecipes.length > 0 && (
-        <section className="wrap section">
-          <div className="section-head">
-            <h2>Recipes for this</h2>
-          </div>
-          <div className="card-grid">
-            {relatedRecipes.map(({ slug, entry }) => (
-              <MediaCard
-                key={slug}
-                href={`/recipes/${slug}`}
-                image={entry.heroImage}
-                title={entry.title}
-                description={entry.summary}
-              />
-            ))}
-          </div>
-        </section>
       )}
 
       {otherArticles.length > 0 && (

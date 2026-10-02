@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { reader } from "@/lib/reader";
 import { buildMetadata } from "@/lib/seo";
-import { pillarByKey } from "@/lib/funnel";
+import { mealByKey } from "@/lib/meals";
 import { MediaCard } from "@/components/MediaCard";
 
 export const metadata: Metadata = buildMetadata({
@@ -23,8 +23,8 @@ export default async function RecipesPage() {
             Hormone-supporting recipes
           </h1>
           <p className="sub" style={{ margin: 0 }}>
-            Every recipe is reframed around the hormone job it does, and links you
-            to the deeper guide behind it.
+            Simple, blood-sugar-balancing breakfasts, dinners, and snacks &amp;
+            treats to support your hormones.
           </p>
         </div>
       </section>
@@ -38,7 +38,7 @@ export default async function RecipesPage() {
               image={entry.heroImage}
               title={entry.title}
               description={entry.summary}
-              tag={pillarByKey(entry.pillar)?.label}
+              tag={mealByKey(entry.meal)?.label}
             />
           ))}
         </div>

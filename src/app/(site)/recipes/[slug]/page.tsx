@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { reader } from "@/lib/reader";
 import { buildMetadata } from "@/lib/seo";
 import { MarkdocContent } from "@/lib/content";
-import { PillarUpLink } from "@/components/PillarUpLink";
 import { FunnelCTA } from "@/components/FunnelCTA";
 import { JsonLd } from "@/components/JsonLd";
 import { recipeJsonLd, breadcrumbJsonLd } from "@/lib/schema";
@@ -100,8 +99,6 @@ export default async function RecipePage({
             />
           </div>
         )}
-
-        <PillarUpLink pillarKey={recipe.pillar} />
 
         {hasStructured ? (
           <div className="recipe-layout" style={{ marginTop: "2rem" }}>

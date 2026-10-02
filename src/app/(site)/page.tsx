@@ -3,9 +3,10 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { reader } from "@/lib/reader";
 import { buildMetadata } from "@/lib/seo";
-import { ctaByKey, pillarByKey } from "@/lib/funnel";
+import { ctaByKey } from "@/lib/funnel";
 import { pillarCards } from "@/lib/pillars";
 import { JsonLd } from "@/components/JsonLd";
+import { mealByKey } from "@/lib/meals";
 import { MediaCard } from "@/components/MediaCard";
 import { Testimonials } from "@/components/Testimonials";
 import { localBusiness } from "@/lib/schema";
@@ -106,7 +107,7 @@ export default async function HomePage() {
                   image={entry.heroImage}
                   title={entry.title}
                   description={entry.summary}
-                  tag={pillarByKey(entry.pillar)?.label}
+                  tag={mealByKey(entry.meal)?.label}
                 />
               ))}
             </div>
