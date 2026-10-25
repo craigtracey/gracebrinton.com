@@ -21,6 +21,7 @@ export default async function RecipesPage() {
     heroImage: entry.heroImage,
     meal: entry.meal,
     mealLabel: mealByKey(entry.meal)?.label ?? entry.meal,
+    ingredients: [...entry.ingredients],
   }));
 
   // Only show chips for meals that actually have recipes, in MEALS order.

@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -8,12 +9,19 @@ export function MediaCard({
   title,
   description,
   tag,
+  heading,
+  children,
 }: {
   href: string;
   image?: string | null;
+  /** Plain title, also used as the image alt text. */
   title: string;
-  description?: string;
+  description?: ReactNode;
   tag?: string;
+  /** Rich version of the title (e.g. with search highlights); defaults to `title`. */
+  heading?: ReactNode;
+  /** Extra content under the description. */
+  children?: ReactNode;
 }) {
   return (
     <Link href={href} className="mcard">
@@ -26,8 +34,9 @@ export function MediaCard({
       )}
       <div className="mcard__body">
         {tag && <span className="tag">{tag}</span>}
-        <h3>{title}</h3>
+        <h3>{heading ?? title}</h3>
         {description && <p>{description}</p>}
+        {children}
       </div>
     </Link>
   );
