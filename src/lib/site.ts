@@ -49,21 +49,34 @@ export const SITE = {
   schedulerUrl: "" as string,
 
   /**
-   * Grace's existing ActiveCampaign ("ActiveHosted") form #5, extracted from the
-   * live site. The /api/subscribe route posts to this server-side so signups stay
-   * on-site (no iframe, no redirect).
+   * Grace's ActiveCampaign ("ActiveHosted") forms, extracted from their embeds.
+   * The /api/subscribe route posts to the chosen form server-side so signups
+   * stay on-site (no iframe, no redirect). AC's automations for each form still
+   * fire, e.g. form #1 emails the hormone guide.
    */
-  newsletter: {
+  forms: {
     action: "https://gracebrinton.activehosted.com/proc.php",
     hidden: {
-      u: "5",
-      f: "5",
-      c: "0",
-      m: "0",
-      act: "sub",
-      v: "2",
-      or: "1550edda-5afe-401a-a8e8-a91b1d214cfd",
-    } as Record<string, string>,
+      newsletter: {
+        u: "5",
+        f: "5",
+        c: "0",
+        m: "0",
+        act: "sub",
+        v: "2",
+        or: "1550edda-5afe-401a-a8e8-a91b1d214cfd",
+      },
+      hormoneGuide: {
+        u: "6ADD50BF1F9DF",
+        f: "1",
+        s: "",
+        c: "0",
+        m: "0",
+        act: "sub",
+        v: "2",
+        or: "3070ac05-4291-4f1b-bc29-e83d6699cfc9",
+      },
+    } as Record<string, Record<string, string>>,
   },
 
   /**

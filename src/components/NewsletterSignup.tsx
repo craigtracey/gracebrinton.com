@@ -12,12 +12,17 @@ export function NewsletterSignup({
   cta = "Subscribe",
   collectName = false,
   compact = false,
+  form = "newsletter",
+  doneMessage = "You're in. Check your inbox to confirm your subscription.",
 }: {
   heading?: string;
   body?: string;
   cta?: string;
   collectName?: boolean;
   compact?: boolean;
+  /** Key into SITE.forms.hidden: which ActiveCampaign form receives the signup. */
+  form?: string;
+  doneMessage?: string;
 }) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -32,7 +37,7 @@ export function NewsletterSignup({
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, fullname: name }),
+        body: JSON.stringify({ email, fullname: name, form }),
       });
       const data = (await res.json().catch(() => ({ ok: false }))) as { ok: boolean; error?: string };
       if (data.ok) setState("done");
@@ -50,7 +55,7 @@ export function NewsletterSignup({
     return (
       <div className={`signup${compact ? " signup--compact" : ""}`}>
         {heading && <h3>Thank you!</h3>}
-        <p className="signup__done">You&apos;re in. Check your inbox to confirm your subscription.</p>
+        <p className="signup__done">{doneMessage}</p>
       </div>
     );
   }

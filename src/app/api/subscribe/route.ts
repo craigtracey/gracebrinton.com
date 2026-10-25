@@ -8,19 +8,28 @@ import { SITE } from "@/lib/site";
  */
 export async function POST(req: Request) {
   try {
-    const { email, fullname } = (await req.json()) as { email?: string; fullname?: string };
+    const { email, fullname, form = "newsletter" } = (await req.json()) as {
+      email?: string;
+      fullname?: string;
+      form?: string;
+    };
+
+    const hidden = Object.hasOwn(SITE.forms.hidden, form) ? SITE.forms.hidden[form] : undefined;
+    if (!hidden) {
+      return NextResponse.json({ ok: false, error: "Unknown form." }, { status: 400 });
+    }
 
     if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
       return NextResponse.json({ ok: false, error: "Please enter a valid email address." }, { status: 400 });
     }
 
     const body = new URLSearchParams({
-      ...SITE.newsletter.hidden,
+      ...hidden,
       email,
       fullname: fullname ?? "",
     });
 
-    const res = await fetch(SITE.newsletter.action, {
+    const res = await fetch(SITE.forms.action, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: body.toString(),

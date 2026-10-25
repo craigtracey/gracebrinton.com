@@ -55,7 +55,6 @@ const redirects = async () => [
   { source: "/services", destination: "/coaching", permanent: true },
   { source: "/special-offer", destination: "/coaching", permanent: true },
   { source: "/workshop", destination: "/coaching", permanent: true },
-  { source: "/hormoneguide", destination: "/hormone-health", permanent: true },
 
   // ── Structural ───────────────────────────────────────────────────────────
   { source: "/home", destination: "/", permanent: true },
