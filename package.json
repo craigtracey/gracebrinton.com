@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "PORT=6500 NODE_PORT=6500 next dev",
     "build": "NODE_OPTIONS=--max-old-space-size=4096 next build",
-    "cf:build": "rm -rf .next/types && opennextjs-cloudflare build && opennextjs-cloudflare populateCache local",
+    "cf:build": "rm -rf .next/types && opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion && opennextjs-cloudflare populateCache local",
     "cf:preview": "yarn cf:build && wrangler dev",
     "cf:deploy": "yarn cf:build && opennextjs-cloudflare deploy",
     "cf:upload": "yarn cf:build && opennextjs-cloudflare upload",
