@@ -101,7 +101,7 @@ export default async function ArticlePage({
                 <ul>
                   {related.map(({ slug: s, entry }) => (
                     <li key={s}>
-                      <Link href={`/articles/${s}`}>{entry.title}</Link>
+                      <Link href={entry.isCornerstone ? pillar.href : `/articles/${s}`}>{entry.title}</Link>
                     </li>
                   ))}
                 </ul>

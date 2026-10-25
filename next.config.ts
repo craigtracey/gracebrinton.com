@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
+import fs from "node:fs";
 import path from "node:path";
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+import { pillarByKey } from "./src/lib/funnel";
+import { LEGACY_WORDPRESS_SLUGS } from "./src/lib/legacyWordpress";
 
 // Lets `next dev` resolve Cloudflare bindings (env vars/secrets) via
 // getCloudflareContext(), the same way the deployed Worker does — needed by
@@ -20,7 +23,33 @@ initOpenNextCloudflareForDev();
  * refine the /resources → /hormone-health cluster assignments below to point each
  * article at whichever pillar it actually earns impressions for.
  */
+/**
+ * Cornerstone articles have no /articles/<slug> page: their body IS the pillar
+ * hub (/hormone-health/<pillar>). Send their article URL, and their old
+ * Squarespace URL, straight to the hub so internal links, the /resources/:slug
+ * rule below, and outside links don't 404. Read from content/ so ticking
+ * "Cornerstone" in Keystatic keeps this in sync.
+ */
+function cornerstoneRedirects() {
+  const dir = path.join(import.meta.dirname, "content/articles");
+  return fs.readdirSync(dir).flatMap((file) => {
+    const front = fs.readFileSync(path.join(dir, file), "utf8").split(/^---$/m)[1] ?? "";
+    const field = (name: string) => front.match(new RegExp(`^${name}:\\s*(.+)$`, "m"))?.[1].trim();
+    const pillar = pillarByKey(field("pillar"));
+    if (field("isCornerstone") !== "true" || !pillar) return [];
+    const slug = file.replace(/\.mdoc$/, "");
+    const legacy = field("legacyUrl");
+    return [`/articles/${slug}`, ...(legacy ? [legacy] : [])].map((source) => ({
+      source,
+      destination: pillar.href,
+      permanent: true,
+    }));
+  });
+}
+
 const redirects = async () => [
+  ...cornerstoneRedirects(),
+
   // ── Recipes: old Squarespace collections collapse into /recipes ──────────
   { source: "/breakfast", destination: "/recipes", permanent: true },
   { source: "/treats", destination: "/recipes", permanent: true },
@@ -75,6 +104,30 @@ const redirects = async () => [
   // there's nothing to migrate. They fall through to the catch-all below.
   // Everything under /blog (junk, dupes, placeholders) → recipes hub.
   { source: "/blog/:slug*", destination: "/recipes", permanent: true },
+
+  // ── Legacy WordPress site (2014–2022) ────────────────────────────────────
+  // Pre-Squarespace URLs that Google and backlinks still request. Archive,
+  // print, and feed URLs collapse by pattern; old posts go to /recipes.
+  { source: "/category/:path*", destination: "/recipes", permanent: true },
+  { source: "/easyrecipe-print/:path*", destination: "/recipes", permanent: true },
+  { source: "/author/:path*", destination: "/", permanent: true },
+  { source: "/feed", destination: "/", permanent: true },
+  { source: "/comments/feed", destination: "/", permanent: true },
+  { source: "/:slug/feed", destination: "/:slug", permanent: true },
+  { source: "/dessert", destination: "/recipes", permanent: true },
+  { source: "/dinner", destination: "/recipes", permanent: true },
+  { source: "/lunch", destination: "/recipes", permanent: true },
+  { source: "/snacks-sides", destination: "/recipes", permanent: true },
+  { source: "/contact-me", destination: "/work-with-me", permanent: true },
+  { source: "/testimonials", destination: "/about", permanent: true },
+  { source: "/digestion", destination: "/hormone-health/gut-health", permanent: true },
+  { source: "/anxiety", destination: "/hormone-health/cortisol", permanent: true },
+  { source: "/start-here-eat-real-food", destination: "/", permanent: true },
+  ...LEGACY_WORDPRESS_SLUGS.map((slug) => ({
+    source: `/${slug}`,
+    destination: "/recipes",
+    permanent: true,
+  })),
 ];
 
 /**
