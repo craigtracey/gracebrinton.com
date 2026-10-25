@@ -25,7 +25,7 @@ export function SiteFooter() {
           <NewsletterSignup
             compact
             heading="Hormone notes, no spam"
-            body="Grace's occasional emails on hormones, recipes, and root-cause health."
+            body="Grace's newsletter sharing recipes and root-cause health."
             cta="Subscribe"
           />
         </div>

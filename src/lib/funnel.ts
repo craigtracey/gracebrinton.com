@@ -14,14 +14,14 @@
 export const PILLARS = [
   {
     key: "blood-sugar",
-    label: "Blood Sugar & Hormones",
+    label: "Blood Sugar & Metabolism",
     href: "/hormone-health/blood-sugar",
     // Short line used on up-links: "Part of our guide to ___"
     linkPhrase: "balancing blood sugar for hormone health",
   },
   {
     key: "cortisol",
-    label: "Cortisol & Stress Hormones",
+    label: "Cortisol & Stress",
     href: "/hormone-health/cortisol",
     linkPhrase: "lowering cortisol naturally",
   },

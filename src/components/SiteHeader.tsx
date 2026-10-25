@@ -6,7 +6,7 @@ import { SITE } from "@/lib/site";
 import { SocialLinks } from "./SocialLinks";
 
 const NAV = [
-  { href: "/coaching", label: "Coaching" },
+  { href: "/coaching", label: "Work With Me" },
   // The hub keeps its keyword-bearing /hormone-health URL; the nav just wears a
   // shorter label now that it covers both the pillar guides and the articles.
   { href: "/hormone-health", label: "Learn" },
