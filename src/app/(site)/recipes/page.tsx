@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { reader } from "@/lib/reader";
 import { buildMetadata } from "@/lib/seo";
-import { mealByKey } from "@/lib/meals";
-import { MediaCard } from "@/components/MediaCard";
+import { MEALS, mealByKey } from "@/lib/meals";
+import { RecipesFilter } from "@/components/RecipesFilter";
 
 export const metadata: Metadata = buildMetadata({
   title: "Hormone-Supporting Recipes",
@@ -13,6 +13,20 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function RecipesPage() {
   const recipes = await reader.collections.recipes.all();
+
+  const cards = recipes.map(({ slug, entry }) => ({
+    slug,
+    title: entry.title,
+    summary: entry.summary,
+    heroImage: entry.heroImage,
+    meal: entry.meal,
+    mealLabel: mealByKey(entry.meal)?.label ?? entry.meal,
+  }));
+
+  // Only show chips for meals that actually have recipes, in MEALS order.
+  const usedMeals = MEALS.filter((m) => cards.some((c) => c.meal === m.key)).map(
+    (m) => ({ key: m.key, label: m.label })
+  );
 
   return (
     <>
@@ -30,18 +44,7 @@ export default async function RecipesPage() {
       </section>
 
       <section className="wrap section">
-        <div className="card-grid">
-          {recipes.map(({ slug, entry }) => (
-            <MediaCard
-              key={slug}
-              href={`/recipes/${slug}`}
-              image={entry.heroImage}
-              title={entry.title}
-              description={entry.summary}
-              tag={mealByKey(entry.meal)?.label}
-            />
-          ))}
-        </div>
+        <RecipesFilter recipes={cards} meals={usedMeals} />
       </section>
     </>
   );

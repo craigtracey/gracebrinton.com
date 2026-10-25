@@ -160,7 +160,7 @@ export default function FourRChallengePage() {
       {/* Registration CTA */}
       <section className="band band--ink">
         <div className="band-inner" style={{ textAlign: "center", maxWidth: "44rem" }}>
-          <p className="eyebrow" style={{ color: "var(--color-sage)" }}>Registration is now open</p>
+          <p className="eyebrow" style={{ color: "var(--color-marigold)" }}>Registration is now open</p>
           <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", margin: "0 0 1rem" }}>
             Ready to give your gut some attention?
           </h2>

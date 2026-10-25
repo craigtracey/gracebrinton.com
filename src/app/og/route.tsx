@@ -39,13 +39,13 @@ export async function GET(req: Request) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#fbf9f6",
+          background: "#f6f1e7",
           padding: "72px 84px",
-          color: "#222425",
-          borderTop: "14px solid #cdd4c4",
+          color: "#21281f",
+          borderTop: "14px solid #e8a317",
         }}
       >
-        <div style={{ fontFamily: "Great Vibes", fontSize: 68, color: "#6d7c5a" }}>Grace Brinton</div>
+        <div style={{ fontFamily: "Great Vibes", fontSize: 68, color: "#2c4a34" }}>Grace Brinton</div>
         <div
           style={{
             fontFamily: "Prata",

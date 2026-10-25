@@ -32,7 +32,7 @@ export default async function HomePage() {
     <>
       <JsonLd data={{ "@context": "https://schema.org", ...localBusiness() }} />
 
-      {/* Hero on a soft sage band */}
+      {/* Hero band */}
       <section className="band band--sage">
         <div className="band-inner hero-grid">
           <div>
