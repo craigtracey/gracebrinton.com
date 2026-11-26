@@ -18,6 +18,7 @@ const NAV: NavItem[] = [
     children: [
       { href: "/hormone-health", label: "Articles" },
       { href: "/hormoneguide", label: "Hormone Guide" },
+      { href: "/gut-meal-plan", label: "Gut Health Meal Plan" },
     ],
   },
   { href: "/recipes", label: "Recipes" },

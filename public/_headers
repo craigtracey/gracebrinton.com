@@ -7,3 +7,8 @@
 # for a year.
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
+
+# Lead-magnet PDFs are linked from ActiveCampaign emails, not the site. Keep them
+# out of search results so the email gate isn't bypassed by a Google hit.
+/downloads/*
+  X-Robots-Tag: noindex, nofollow

@@ -76,6 +76,17 @@ export const SITE = {
         v: "2",
         or: "3070ac05-4291-4f1b-bc29-e83d6699cfc9",
       },
+      // Form #9 emails the gut health meal plan.
+      gutMealPlan: {
+        u: "6B089652921FF",
+        f: "9",
+        s: "",
+        c: "0",
+        m: "0",
+        act: "sub",
+        v: "2",
+        or: "1dc593a5-e63e-4219-bab7-c0786b171c10",
+      },
     } as Record<string, Record<string, string>>,
   },
 

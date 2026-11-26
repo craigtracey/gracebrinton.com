@@ -1,0 +1,15 @@
+/* The meal plan's weekly grid is landscape, so its peek gets a wider column than
+   the portrait pages on /hormoneguide. Everything else reuses guide.module.css. */
+.split {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+@media (min-width: 880px) { .split { grid-template-columns: 1.2fr 1fr; gap: 3.5rem; } }
+.peekWide {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  transform: rotate(-1.5deg);
+  box-shadow: 0 24px 50px color-mix(in srgb, var(--color-ink) 20%, transparent);
+}

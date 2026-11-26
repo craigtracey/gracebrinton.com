@@ -23,10 +23,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "Please enter a valid email address." }, { status: 400 });
     }
 
+    // Older forms (e.g. #1) collect `fullname`, newer ones (#9) `firstname`; AC
+    // ignores whichever field the form doesn't have, so send both.
     const body = new URLSearchParams({
       ...hidden,
       email,
       fullname: fullname ?? "",
+      firstname: fullname ?? "",
     });
 
     const res = await fetch(SITE.forms.action, {
