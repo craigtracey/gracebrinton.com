@@ -7,6 +7,13 @@ template → Custom HTML** whenever it changes.
 | File | Sent by |
 | --- | --- |
 | `gut-meal-plan.html` | Form #9 automation (Gut Health Meal Plan delivery) |
+| `hormone-guide.html` | Form #1 automation (Hormone Guide delivery) |
+| `newsletter.html` | Regular newsletter campaigns |
+
+The newsletter is a template: everything in `[BRACKETS]` and each block marked
+`EDIT EACH ISSUE` changes per send. The article and recipe it ships with are
+real examples (`sample-article.jpg`, `sample-recipe.jpg`); swap in each issue's
+images at 1040×520 and 440×440, uploaded to ActiveCampaign or added here.
 
 ## Conventions
 
