@@ -4,6 +4,7 @@ import path from "node:path";
 import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 import { pillarByKey } from "./src/lib/funnel";
 import { LEGACY_WORDPRESS_SLUGS } from "./src/lib/legacyWordpress";
+import imageWidths from "./src/lib/image-widths.json";
 
 // Lets `next dev` resolve Cloudflare bindings (env vars/secrets) via
 // getCloudflareContext(), the same way the deployed Worker does — needed by
@@ -160,11 +161,22 @@ const nextConfig: NextConfig = {
   // pin it to this project so output file tracing is correct.
   outputFileTracingRoot: path.join(import.meta.dirname),
   redirects,
-  // No `images.remotePatterns`: every image is local under public/images (40
-  // files; no content or component references a remote host). remotePatterns is
-  // an allowlist for the image optimizer, so an unused entry would let anyone
-  // pass a URL on that host to /_next/image and have the Worker fetch and
-  // re-serve it. Add a host back only when something actually needs it.
+  // Images are pre-resized at build (scripts/optimize-images.mjs) and served as
+  // static files by src/lib/imageLoader.ts; /_next/image resized on every
+  // request uncached and made the home hero lag. The widths here and the ones
+  // the script generates come from the same file, so they can't drift.
+  //
+  // No `images.remotePatterns`: every image is local under public/images (no
+  // content or component references a remote host). remotePatterns is an
+  // allowlist for the image optimizer, so an unused entry would let anyone pass
+  // a URL on that host to /_next/image and have the Worker fetch and re-serve
+  // it. Add a host back only when something actually needs it.
+  images: {
+    loader: "custom",
+    loaderFile: "./src/lib/imageLoader.ts",
+    deviceSizes: imageWidths.deviceSizes,
+    imageSizes: imageWidths.imageSizes,
+  },
 };
 
 export default nextConfig;

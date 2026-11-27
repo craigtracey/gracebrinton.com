@@ -12,3 +12,8 @@
 # out of search results so the email gate isn't bypassed by a Google hit.
 /downloads/*
   X-Robots-Tag: noindex, nofollow
+
+# Pre-resized images (scripts/optimize-images.mjs). Filenames aren't hashed, so
+# cache for a day and revalidate in the background rather than marking immutable.
+/_img/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
