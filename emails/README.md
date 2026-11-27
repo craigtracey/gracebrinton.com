@@ -8,6 +8,8 @@ template → Custom HTML** whenever it changes.
 | --- | --- |
 | `gut-meal-plan.html` | Form #9 automation (Gut Health Meal Plan delivery) |
 | `hormone-guide.html` | Form #1 automation (Hormone Guide delivery) |
+| `hormone-guide-follow-up.html` | Hormone Guide nurture: "Did you get your hormone guide?" |
+| `gut-hormone-connection.html` | Hormone Guide nurture: The Gut-Hormone Connection |
 | `newsletter.html` | Regular newsletter campaigns |
 
 The newsletter is a template: everything in `[BRACKETS]` and each block marked
